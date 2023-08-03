@@ -1,6 +1,6 @@
 ﻿namespace TicketBookingSystem
 {
-    public class Passenger : IUser
+    public interface IUserFactory
     {
     }
 }
