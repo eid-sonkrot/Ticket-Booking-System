@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketBookingSystem
+namespace TicketBookingSystem.Data
 {
-    public class UserInterfaceFactory:IUserInterfaceFactory
+    internal interface IBookingDataAccess
     {
     }
 }

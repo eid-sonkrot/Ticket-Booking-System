@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketBookingSystem
+namespace TicketBookingSystem.View
 {
-    public class UserFactory:IUserFactory
+    public class UserInterfaceFactory : IUserInterfaceFactory
     {
     }
 }

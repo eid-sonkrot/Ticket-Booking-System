@@ -1,4 +1,4 @@
-﻿namespace TicketBookingSystem
+﻿namespace TicketBookingSystem.Business
 {
     public class Booking
     {
