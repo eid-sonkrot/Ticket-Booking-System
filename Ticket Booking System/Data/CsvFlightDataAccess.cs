@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketBookingSystem.Data
+﻿namespace TicketBookingSystem.Data
 {
     internal class CsvFlightDataAccess
     {
