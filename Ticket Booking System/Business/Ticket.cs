@@ -12,7 +12,7 @@ namespace TicketBookingSystem.Business
         BookingId bookingId { get; set; }
         [Required]
         public Class Class { get; set; }
-
+        public Price price { get; set; }
         public Ticket(Person person, Flight flight, Seat seat, BookingId bookingId, Class @class)
         {
             this.person = person;
