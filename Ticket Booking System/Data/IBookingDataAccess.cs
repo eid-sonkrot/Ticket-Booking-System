@@ -1,6 +1,13 @@
-﻿namespace TicketBookingSystem.Data
+﻿using TicketBookingSystem.Business;
+
+namespace TicketBookingSystem.Data
 {
-    internal interface IBookingDataAccess
+    public interface IBookingDataAccess
     {
+        List<Booking> ReadBookings();
+        bool WriteBookings(List<Booking> bookings);
+        List<Booking> SearchBookings(SearchParameters parameters);
+        bool DeleteBooking(int bookingId);
+        bool ModifyBooking(int bookingId, Booking modifiedBooking);
     }
 }

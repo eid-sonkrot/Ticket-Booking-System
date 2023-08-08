@@ -6,6 +6,5 @@
         UserRole role { get; set; }
         List<Flight> SearchFlights(SearchParameters searchParameters);
         List<Flight> ViweFlights();
-
     }
 }
