@@ -4,7 +4,11 @@
     {
         public User user { get; set; }
         public UserRole role { get; set; }
-
+        public Passenger(User user,UserRole role)
+        {
+            this.user = user;
+            this.role = role;
+        }
         public bool BookAJourney(List<Ticket>tickets, BookingStatus bookingStatus, Date bookingDate)
         {
             try
