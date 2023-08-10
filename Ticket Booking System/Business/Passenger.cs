@@ -20,13 +20,39 @@
                 return false;
             }
         }
-        public List<Flight> SearchFlights()
+        public bool CancelBooking(BookingId bookingId)
         {
-            return new List<Flight>();
+            try
+            {
+                var proxy = new Proxy(user, role);
+
+                return proxy.CancelBooking(bookingId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with Cancel a Book  : {ex.Message}");
+                return false;
+            }
         }
-        public List<Flight> ViweFlights()
+        public List<Flight> SearchFlights(Flight flight)
         {
-            return new List<Flight>();
+            try
+            {
+                var proxy = new Proxy(user, role);
+
+                return proxy.GetFlights().Where(f=>f.Compare(flight)).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with Search Flights   : {ex.Message}");
+                return new List<Flight>();
+            }
+        }
+        public List<Flight>  GetAllFlights()
+        {
+            var proxy = new Proxy(user,role);
+
+            return proxy.GetFlights();
         }
     }
 }

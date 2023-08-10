@@ -4,16 +4,16 @@ namespace TicketBookingSystem.Business
 {
     public class Booking
     {
-        private List<Ticket> tickets=new List<Ticket>();
-        private BookingId bookingId { get; set; }
-        private Date bookingDate { get; set; }
-        private BookingStatus bookingStatus { get; set; }
-        private Country departureCountry { get; set; }
-        private Country destinationCountry { get; set; }
-        private Date? departureDate { get; set; }
-        private Date? arrivalDate { get; set; }
-        private JourneyStatus journeyStatus { get; set; }
-        private Price price { get; set; }
+        public List<Ticket> tickets=new List<Ticket>();
+        public BookingId bookingId { get; set; }
+        public Date bookingDate { get; set; }
+        public BookingStatus bookingStatus { get; set; }
+        public Country departureCountry { get; set; }
+        public Country destinationCountry { get; set; }
+        public Date? departureDate { get; set; }
+        public Date? arrivalDate { get; set; }
+        public JourneyStatus journeyStatus { get; set; }
+        public Price price { get; set; }
 
         public Booking(List<Ticket> tickets, BookingStatus bookingStatus,Date bookingDate)
         {

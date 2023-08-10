@@ -32,5 +32,38 @@ namespace TicketBookingSystem.Business
         public Flight()
         {
         }
+        public bool Compare(Flight flight)
+        {
+            if(this.flightId != flight.flightId && flight.flightId!=null)
+            {
+                return false;
+            }
+            if (this.departureDate != flight.departureDate && flight.departureDate != null)
+            {
+                return false;
+            }
+            if (this.arrivalDate != flight.arrivalDate && flight.arrivalDate != null)
+            {
+                return false;
+            }
+            if (this.departureCountry != flight.departureCountry && flight.departureCountry != null)
+            {
+                return false;
+            }
+            if (this.destinationCountry != flight.destinationCountry && flight.destinationCountry != null)
+            {
+                return false;
+            }
+            if (this.departureAirport != flight.departureAirport && flight.departureAirport != null)
+            {
+                return false;
+            }
+            if (this.arrivalAirport != flight.arrivalAirport && flight.arrivalAirport != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
     }
 }
