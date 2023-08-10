@@ -20,6 +20,22 @@
                 return false;
             }
         }
+        public bool ModifyBook(Booking booking)
+        {
+            try
+            {
+                var proxy = new Proxy(user, role);
+
+                if(!proxy.CancelBooking(booking.bookingId))
+                    return false;
+                return  proxy.setBookings(new List<Booking> { booking });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with Modify Bookign  : {ex.Message}");
+                return false;
+            }
+        }
         public bool CancelBooking(BookingId bookingId)
         {
             try
@@ -32,6 +48,20 @@
             {
                 Console.WriteLine($"Error with Cancel a Book  : {ex.Message}");
                 return false;
+            }
+        }
+        public List<Booking> GetBookings()
+        {
+            try
+            {
+                var proxy = new Proxy(user, role);
+
+                return proxy.GetBookings();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with get Bookings  : {ex.Message}");
+                return new List<Booking>();
             }
         }
         public List<Flight> SearchFlights(Flight flight)
