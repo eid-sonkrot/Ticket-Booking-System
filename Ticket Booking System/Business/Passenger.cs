@@ -5,12 +5,14 @@
         public User user { get; set; }
         public UserRole role { get; set; }
 
-        public bool BookAJourney(List<Ticket>tickets)
+        public bool BookAJourney(List<Ticket>tickets, BookingStatus bookingStatus, Date bookingDate)
         {
             try
             {
-                var book = new Booking();   
-                return true;
+                var book = new Booking(tickets,bookingStatus,bookingDate);
+                var proxy = new Proxy(user,role);
+
+                return proxy.setBookings(new List<Booking> {book});
             }
             catch(Exception ex)
             {

@@ -2,7 +2,16 @@
 {
     public class Proxy
     {
-       public List<Flight> GetFlights(User user, UserRole userRole)
+        private User user;
+        private UserRole userRole;
+
+        public Proxy(User user, UserRole userRole)
+        {
+            this.user = user;
+            this.userRole = userRole;
+        }
+
+        public List<Flight> GetFlights(User user, UserRole userRole)
         {
             return new List<Flight>();
         }

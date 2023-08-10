@@ -21,13 +21,13 @@ namespace TicketBookingSystem.Data
                 var flights = csvData
                     .Select(fields =>
                     {
-                        FlightId flightId = new FlightId { Id = fields[0] };
-                        Country departureCountry = new Country { CountryCode = fields[1],CountryName = fields[2] };
-                        Country destinationCountry = new Country { CountryCode = fields[3], CountryName = fields[4] };
-                        Date departureDate = new Date { Year= int.Parse(fields[5]),Month= int.Parse(fields[6]),Day= int.Parse(fields[7]) };
-                        Date arrivalDate = new Date { Year = int.Parse(fields[8]), Month = int.Parse(fields[9]), Day = int.Parse(fields[10]) };
-                        Airport departureAirport = new Airport { AirportCode= fields[11],AirportName= fields[12] };
-                        Airport arrivalAirport = new Airport { AirportCode = fields[13], AirportName = fields[14] };
+                        var flightId = new FlightId { Id = fields[0] };
+                        var departureCountry = new Country { CountryCode = fields[1],CountryName = fields[2] };
+                        var destinationCountry = new Country { CountryCode = fields[3], CountryName = fields[4] };
+                        var departureDate = new Date { Year= int.Parse(fields[5]),Month= int.Parse(fields[6]),Day= int.Parse(fields[7]) };
+                        var arrivalDate = new Date { Year = int.Parse(fields[8]), Month = int.Parse(fields[9]), Day = int.Parse(fields[10]) };
+                        var departureAirport = new Airport { AirportCode= fields[11],AirportName= fields[12] };
+                        var arrivalAirport = new Airport { AirportCode = fields[13], AirportName = fields[14] };
 
                         return new Flight(flightId, departureCountry, destinationCountry, departureDate, arrivalDate, departureAirport, arrivalAirport);
                     }
