@@ -17,7 +17,16 @@ namespace TicketBookingSystem.Business
             this.seat = seat;
         }
         public Ticket()
+        {     
+        }
+        public bool Compare(Ticket ticket)
         {
+            if(!this.seat.Equals(ticket.seat) && ticket.seat!=null)
+                return false;
+            if (!this.person.Equals(ticket.person) && ticket.person != null)
+                return false;
+            
+            return this.flight.Compare(ticket.flight);
         }
     }
 }

@@ -37,39 +37,39 @@ namespace TicketBookingSystem.Business
         }
         public bool Compare(Flight flight)
         {
-            if(this.flightId != flight.flightId && flight.flightId!=null)
+            if(!this.flightId.Equals( flight.flightId) && flight.flightId!=null)
             {
                 return false;
             }
-            if (this.departureDate != flight.departureDate && flight.departureDate != null)
+            if (!this.departureDate.Equals( flight.departureDate) && flight.departureDate != null)
             {
                 return false;
             }
-            if (this.arrivalDate != flight.arrivalDate && flight.arrivalDate != null)
+            if (!this.arrivalDate.Equals(flight.arrivalDate )&& flight.arrivalDate != null)
             {
                 return false;
             }
-            if (this.departureCountry != flight.departureCountry && flight.departureCountry != null)
+            if (!this.departureCountry.Equals(flight.departureCountry) && flight.departureCountry != null)
             {
                 return false;
             }
-            if (this.destinationCountry != flight.destinationCountry && flight.destinationCountry != null)
+            if (!this.destinationCountry.Equals( flight.destinationCountry )&& flight.destinationCountry != null)
             {
                 return false;
             }
-            if (this.departureAirport != flight.departureAirport && flight.departureAirport != null)
+            if (!this.departureAirport.Equals(flight.departureAirport) && flight.departureAirport != null)
             {
                 return false;
             }
-            if (this.arrivalAirport != flight.arrivalAirport && flight.arrivalAirport != null)
+            if (!this.arrivalAirport.Equals( flight.arrivalAirport) && flight.arrivalAirport != null)
             {
                 return false;
             }
-            if (this.price != flight.price && flight.price != null)
+            if (!this.price.Equals(flight.price) && flight.price != null)
             {
                 return false;
             }
-            if (this.Class != flight.Class && flight.Class != null)
+            if (!this.Class.Equals( flight.Class) && flight.Class != null)
             {
                 return false;
             }
