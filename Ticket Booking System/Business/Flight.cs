@@ -18,8 +18,9 @@ namespace TicketBookingSystem.Business
         public Airport departureAirport { get; set; }
         [Required]
         public Airport arrivalAirport { get; set; }
-
-        public Flight(FlightId flightId, Country departureCountry, Country destinationCountry, Date departureDate, Date arrivalDate, Airport departureAirport, Airport arrivalAirport)
+        public Class Class { get; set; }
+        public Price price { get; set; }
+        public Flight(FlightId flightId, Country departureCountry, Country destinationCountry, Date departureDate, Date arrivalDate, Airport departureAirport, Airport arrivalAirport,Price price,Class @class)
         {
             this.flightId = flightId;
             this.departureCountry = departureCountry;
@@ -28,6 +29,8 @@ namespace TicketBookingSystem.Business
             this.arrivalDate = arrivalDate;
             this.departureAirport = departureAirport;
             this.arrivalAirport = arrivalAirport;
+            this.Class = @class;
+            this.price = price;
         }
         public Flight()
         {
@@ -59,6 +62,14 @@ namespace TicketBookingSystem.Business
                 return false;
             }
             if (this.arrivalAirport != flight.arrivalAirport && flight.arrivalAirport != null)
+            {
+                return false;
+            }
+            if (this.price != flight.price && flight.price != null)
+            {
+                return false;
+            }
+            if (this.Class != flight.Class && flight.Class != null)
             {
                 return false;
             }

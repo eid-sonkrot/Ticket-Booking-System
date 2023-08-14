@@ -1,4 +1,5 @@
-﻿using TicketBookingSystem.Business;
+﻿using System;
+using TicketBookingSystem.Business;
 
 namespace TicketBookingSystem.Data
 {
@@ -28,8 +29,12 @@ namespace TicketBookingSystem.Data
                         var arrivalDate = new Date { Year = int.Parse(fields[8]), Month = int.Parse(fields[9]), Day = int.Parse(fields[10]) };
                         var departureAirport = new Airport { AirportCode= fields[11],AirportName= fields[12] };
                         var arrivalAirport = new Airport { AirportCode = fields[13], AirportName = fields[14] };
+                        var price = new Price { price = double.Parse(fields[15]), currency= (CurrencyType)Enum.ToObject(typeof(CurrencyType),
+                            int.Parse(fields[16])) };
+                        var @class = (Class)Enum.ToObject(typeof(Class), int.Parse(fields[17]));
 
-                        return new Flight(flightId, departureCountry, destinationCountry, departureDate, arrivalDate, departureAirport, arrivalAirport);
+                        return new Flight(flightId, departureCountry, destinationCountry, departureDate, arrivalDate, 
+                            departureAirport, arrivalAirport,price,@class);
                     }
                      )
                     .ToList();

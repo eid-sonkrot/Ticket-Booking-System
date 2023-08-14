@@ -15,11 +15,11 @@ namespace TicketBookingSystem.Business
         public JourneyStatus journeyStatus { get; set; }
         public Price price { get; set; }
 
-        public Booking(List<Ticket> tickets, BookingStatus bookingStatus,Date bookingDate)
+        public Booking(List<Ticket> tickets, BookingStatus bookingStatus)
         {
             this.tickets = tickets;
             this.bookingId = GenerateId();
-            this.bookingDate = bookingDate;
+            this.bookingDate = new Date { Day=DateTime.Now.Day,Year=DateTime.Now.Year,Month=DateTime.Now.Month};
             this.bookingStatus = bookingStatus;
             this.departureCountry = tickets.First().flight.departureCountry;
             this.destinationCountry = tickets.Last().flight.destinationCountry;
@@ -30,7 +30,7 @@ namespace TicketBookingSystem.Business
         }
         private Price ClaculatePrice()
         {
-            var prices = this.tickets.Select(ticket => ticket.price).ToList();
+            var prices = this.tickets.Select(ticket => ticket.flight.price).ToList();
             return new Price
             {
                 price = prices.Sum(p => p.price),
