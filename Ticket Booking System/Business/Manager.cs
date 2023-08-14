@@ -4,6 +4,7 @@
     {
         public User user { get; set; }
         public UserRole role { get; set; }
+
         public Manager(User user, UserRole role)
         {
             this.user = user;
@@ -22,6 +23,16 @@
                 Console.WriteLine("problem in Filter Booking");
                 return new List<Booking>();
             }
+        }
+        public bool AddFlightFromCsv(string csvPath)
+        {
+            var proxy = new Proxy(user, role);
+
+            proxy.SetCsvPath(csvPath);
+
+            var Flights = proxy.GetFlights();
+
+            return proxy.setFlights(Flights);
         }
     }
 }
