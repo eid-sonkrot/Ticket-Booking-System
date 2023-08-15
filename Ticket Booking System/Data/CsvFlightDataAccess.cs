@@ -29,7 +29,7 @@ namespace TicketBookingSystem.Data
                         var arrivalDate = new Date { Year = int.Parse(fields[8]), Month = int.Parse(fields[9]), Day = int.Parse(fields[10]) };
                         var departureAirport = new Airport { AirportCode= fields[11],AirportName= fields[12] };
                         var arrivalAirport = new Airport { AirportCode = fields[13], AirportName = fields[14] };
-                        var price = new Price { price = double.Parse(fields[15]), currency= (CurrencyType)Enum.ToObject(typeof(CurrencyType),
+                        var price = new Price { price = double.Parse(fields[15]), Currency= (CurrencyType)Enum.ToObject(typeof(CurrencyType),
                             int.Parse(fields[16])) };
                         var @class = (Class)Enum.ToObject(typeof(Class), int.Parse(fields[17]));
 
@@ -54,21 +54,6 @@ namespace TicketBookingSystem.Data
                 var csvData = new List<string[]>();
                 csvData.AddRange(flights.Select(flight => new string[]
                 {
-                   flight.flightId.Id,
-                   flight.departureCountry.CountryCode,
-                   flight.departureCountry.CountryName,
-                   flight.destinationCountry.CountryCode,
-                   flight.destinationCountry.CountryName,
-                   flight.departureDate.Year.ToString(),
-                   flight.departureDate.Month.ToString(),
-                   flight.departureDate.Day.ToString(),
-                   flight.arrivalDate.Year.ToString(),
-                   flight.arrivalDate.Month.ToString(),
-                   flight.arrivalDate.Day.ToString(),
-                   flight.departureAirport.AirportCode,
-                   flight.departureAirport.AirportName,
-                   flight.arrivalAirport.AirportCode,
-                   flight.arrivalAirport.AirportName
                 }));
                 csvDataManager.WriteCsvData(csvData);
                 return true;

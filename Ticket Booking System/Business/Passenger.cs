@@ -5,29 +5,29 @@ namespace TicketBookingSystem.Business
 {
     public class Passenger : IUser
     {
-        public User user { get; set; }
-        public UserRole role { get; set; }
+        public User User { get; set; }
+        public UserRole Role { get; set; }
         public Passenger(User user, UserRole role)
         {
-            this.user = user;
-            this.role = role;
+            this.User = user;
+            this.Role = role;
         }
         public List<Booking> GetAllPossibleBooking(Flight flight, Seat seat)
         {
             try
             {
-                var proxy = new Proxy(user, role);
+                var proxy = new Proxy(User, Role);
                 var departureInfo = new Flight();
                 var flightsWithDepartureInfo = new List<Flight>();
                 var destinationInfo = new Flight();
                 var flightsWithDestinationInfo = new List<Flight>();
 
-                departureInfo.departureAirport = flight.departureAirport;
-                departureInfo.departureCountry = flight.departureCountry;
-                departureInfo.departureDate = flight.departureDate;
-                destinationInfo.arrivalAirport = flight.arrivalAirport;
-                destinationInfo.destinationCountry = flight.destinationCountry;
-                destinationInfo.arrivalDate = flight.arrivalDate;
+                departureInfo.DepartureAirport = flight.DepartureAirport;
+                departureInfo.DepartureCountry = flight.DepartureCountry;
+                departureInfo.DepartureDate = flight.DepartureDate;
+                destinationInfo.ArrivalAirport = flight.ArrivalAirport;
+                destinationInfo.DestinationCountry = flight.DestinationCountry;
+                destinationInfo.ArrivalDate = flight.ArrivalDate;
                 flightsWithDepartureInfo = SearchFlights(departureInfo);
                 flightsWithDestinationInfo = SearchFlights(destinationInfo);
 
@@ -35,19 +35,19 @@ namespace TicketBookingSystem.Business
                                join destinationFlight in flightsWithDestinationInfo
                                on new
                                {
-                                   DepartureAirport = departureFlight.arrivalAirport,
-                                   DepartureCountry = departureFlight.destinationCountry,
-                                   DepartureDate = departureFlight.arrivalDate
+                                   DepartureAirport = departureFlight.ArrivalAirport,
+                                   DepartureCountry = departureFlight.DestinationCountry,
+                                   DepartureDate = departureFlight.ArrivalDate
                                } equals new
                                {
-                                   DepartureAirport = destinationFlight.departureAirport,
-                                   DepartureCountry = destinationFlight.departureCountry,
-                                   DepartureDate = destinationFlight.departureDate
+                                   DepartureAirport = destinationFlight.DepartureAirport,
+                                   DepartureCountry = destinationFlight.DepartureCountry,
+                                   DepartureDate = destinationFlight.DepartureDate
                                }
                                select (departureFlight, destinationFlight)).ToList();
                 var tickets = flights.Select(flight =>
-                             new List<Ticket>{ new Ticket(user.person, flight.departureFlight, seat),
-                             new Ticket(user.person, flight.destinationFlight, seat)}.Distinct().ToList());
+                             new List<Ticket>{ new Ticket(User.Person, flight.departureFlight, seat),
+                             new Ticket(User.Person, flight.destinationFlight, seat)}.Distinct().ToList());
                 var bookings = tickets.Select(ticket => new Booking(ticket,BookingStatus.OnHold)).ToList();
 
                 return bookings;
@@ -63,7 +63,7 @@ namespace TicketBookingSystem.Business
             try
             {
                 var book = new Booking(tickets,bookingStatus);
-                var proxy = new Proxy(user,role);
+                var proxy = new Proxy(User,Role);
 
                 return proxy.setBookings(new List<Booking> {book});
             }
@@ -77,9 +77,9 @@ namespace TicketBookingSystem.Business
         {
             try
             {
-                var proxy = new Proxy(user, role);
+                var proxy = new Proxy(User, Role);
 
-                if(!proxy.CancelBooking(booking.bookingId))
+                if(!proxy.CancelBooking(booking.BookingId))
                     return false;
                 return  proxy.setBookings(new List<Booking> { booking });
             }
@@ -93,7 +93,7 @@ namespace TicketBookingSystem.Business
         {
             try
             {
-                var proxy = new Proxy(user, role);
+                var proxy = new Proxy(User, Role);
 
                 return proxy.CancelBooking(bookingId);
             }
@@ -107,7 +107,7 @@ namespace TicketBookingSystem.Business
         {
             try
             {
-                var proxy = new Proxy(user, role);
+                var proxy = new Proxy(User, Role);
 
                 return proxy.GetBookings();
             }
@@ -121,7 +121,7 @@ namespace TicketBookingSystem.Business
         {
             try
             {
-                var proxy = new Proxy(user, role);
+                var proxy = new Proxy(User, Role);
 
                 return proxy.GetFlights().Where(f=>f.Compare(flight)).ToList();
             }
@@ -133,7 +133,7 @@ namespace TicketBookingSystem.Business
         }
         public List<Flight>  GetAllFlights()
         {
-            var proxy = new Proxy(user,role);
+            var proxy = new Proxy(User,Role);
 
             return proxy.GetFlights();
         }

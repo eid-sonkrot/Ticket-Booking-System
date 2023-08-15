@@ -11,4 +11,22 @@ public record Person
     [RegularExpression(@"^[0-9]*$", ErrorMessage = "PassprotNumber should contain only numeric values.")]
     [StringLength(20, MinimumLength = 20, ErrorMessage = "PassprotNumbermust be exactly 20 characters long.")]
     public string PassprotNumber { get; set; }
+    public Person FillFromStrings(string[] values)
+    {
+        if (values.Length != 3)
+        {
+            throw new ArgumentException("Exactly 3 values are required to fill the Person record.");
+        }
+
+        return new Person
+        {
+            PersonName = values[0],
+            PersonId = values[1],
+            PassprotNumber = values[2]
+        };
+    }
+    public string[] ToArrayOfStrign()
+    {
+        return new string[] {PersonName,PersonId,PassprotNumber};
+    }
 }

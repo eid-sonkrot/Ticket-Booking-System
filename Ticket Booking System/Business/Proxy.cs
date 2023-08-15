@@ -4,7 +4,7 @@
     {
         private User user;
         private UserRole userRole;
-        private string CsvPath;
+        private string cvPath;
 
         public Proxy(User user, UserRole userRole)
         {
@@ -16,7 +16,7 @@
         }
         public void SetCsvPath(string csvPath)
         {
-            CsvPath = csvPath;
+            csvPath = csvPath;
         }
         public List<Flight> GetFlights()
         {

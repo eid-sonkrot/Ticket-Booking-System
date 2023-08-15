@@ -8,4 +8,25 @@ public record Country
     [RegularExpression(@"^[a-Z]*$", ErrorMessage = "CountryName should contain only latin alphabet letters.")]
     [StringLength(30, ErrorMessage = "CountryName must be at most 30 characters long.")]
     public string? CountryName { get; init; }
+
+    public Country FillFromStrings(string[] values)
+    {
+        if (values.Length >= 2)
+        {
+            return this with
+            {
+                CountryCode = values[0],
+                CountryName = values[1]
+            };
+        }
+        else
+        {
+            throw new ArgumentException("Insufficient values provided to fill the Country record.");
+        }
+    }
+    public string[] ToArrayOfStrign()
+    {
+        return new string[] { CountryCode, CountryName };
+
+    }
 }
