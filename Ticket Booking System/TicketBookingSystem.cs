@@ -1,4 +1,5 @@
-﻿namespace TicketBookingSystem
+﻿using TicketBookingSystem.Business;
+namespace TicketBookingSystem
 {
     class TicketBookingSystem
     {
