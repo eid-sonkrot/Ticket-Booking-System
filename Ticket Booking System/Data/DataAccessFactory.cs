@@ -10,5 +10,9 @@
         {
             return new CsvBookingDataAccess(csvFilePath); 
         }
+        public IUsersCredentialDataAccess CreateUsersCredentialDataAccess(string csvFilePath)
+        {
+            return new CsvUsersCredentialDataAccess(csvFilePath);
+        }
     }
 }

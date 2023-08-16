@@ -8,13 +8,13 @@
         {
             userFactory = new UserFactory();
         }
-        public IUser GetUserControall(User user,UserRole role)
+        public IUser GetUserControall(UsersCredentials usersCredentials)
         {
             try
             {
-                if (UserAuthentication(user, role))
+                if (UserAuthentication(usersCredentials))
                 {
-                    return userFactory.CreateUser(user, role);
+                    return userFactory.CreateUser(usersCredentials.User,usersCredentials.Role);
                 }else
                 {
                     Console.WriteLine("Authentication failed.");
@@ -26,13 +26,13 @@
                 return null;
             }
         }
-        public bool UserAuthentication(User user,UserRole role)
+        public bool UserAuthentication(UsersCredentials usersCredentials)
         {
             try
             {
                 var proxy = new Proxy();
 
-                return proxy.UserAuthentication(user,role);
+                return proxy.UserAuthentication(usersCredentials);
             }
             catch (Exception ex)
             {

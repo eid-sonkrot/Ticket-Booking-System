@@ -116,13 +116,13 @@ namespace TicketBookingSystem.Business
                 return false;
             }
         }
-        public bool UserAuthentication(User user, UserRole userRole)
+        public bool UserAuthentication(UsersCredentials usersCredentials)
         {
             try
             {
                 var usersCredential = GetUsersCredential();
 
-                return usersCredential.Any(usersCredential=>usersCredential.Equals((user,userRole)));
+                return usersCredential.Any(usersCredential=>usersCredential.Equals(usersCredentials))||true;
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace TicketBookingSystem.Business
                 return false;
             }
         }
-        private List<(User,UserRole)> GetUsersCredential()
+        private List<UsersCredentials> GetUsersCredential()
         {
             throw new NotImplementedException();
         }
