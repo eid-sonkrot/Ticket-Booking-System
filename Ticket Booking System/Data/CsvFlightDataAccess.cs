@@ -1,6 +1,9 @@
-﻿namespace TicketBookingSystem.Data
+﻿using TicketBookingSystem.Business;
+
+namespace TicketBookingSystem.Data
 {
-    internal class CsvFlightDataAccess
+    public class CsvFlightDataAccess: IFlightDataAccess
     {
+        
     }
 }

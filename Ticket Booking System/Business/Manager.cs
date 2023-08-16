@@ -1,6 +1,6 @@
 ﻿namespace TicketBookingSystem.Business
 {
-    public class Manager //: IUser
+    public class Manager : IUser
     {
     }
 }
