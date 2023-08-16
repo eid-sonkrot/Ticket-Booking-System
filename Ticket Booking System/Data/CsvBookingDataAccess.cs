@@ -1,6 +1,6 @@
 ﻿namespace TicketBookingSystem.Data
 {
-    internal class CsvBookingDataAccess
+    public class CsvBookingDataAccess : IBookingDataAccess
     {
     }
 }

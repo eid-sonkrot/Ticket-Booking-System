@@ -1,6 +1,6 @@
 ﻿namespace TicketBookingSystem.Business
 {
-    public class Passenger //: IUser
+    public class Passenger : IUser
     {
     }
 }
