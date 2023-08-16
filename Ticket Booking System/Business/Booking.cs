@@ -33,6 +33,10 @@ namespace TicketBookingSystem.Business
             this.JourneyStatus = SetjourneyStatus();
             this.Price = ClaculatePrice();
         }
+        public Booking()
+        {
+
+        }
         private Price ClaculatePrice()
         {
             var prices = this.Tickets.Select(ticket => ticket.Flight.Price).ToList();

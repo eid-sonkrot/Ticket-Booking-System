@@ -61,23 +61,67 @@ namespace TicketBookingSystem.Business
         }
         public List<Ticket> GetTickets()
         {
-            return new List<Ticket>();
+           throw new NotImplementedException();
         }
         public bool SetTickets(List<Ticket> tickets)
         {
-            return false;
+            throw new NotImplementedException();
         }
         public List<Booking> GetBookings()
         {
-            return new List<Booking>();
+            try
+            {
+                if (userRole == UserRole.Manger)
+                {
+
+                    return accessFactory.CreateBookingDataAccess(csvPath).ReadBookings();
+
+                }
+                if(userRole == UserRole.Passnger)
+                {
+                    var bookings= accessFactory.CreateBookingDataAccess(csvPath).ReadBookings();
+                    
+                    return bookings.Where(booking => booking.Tickets.First().Person.Equals(user.Person)).ToList();
+                }
+                return new List<Booking>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Reading Booking: {ex.Message}");
+                return new List<Booking>();
+            }
         }
         public bool SetBookings(List<Booking> bookings)
         {
-            return false;
+            try
+            {
+                return accessFactory.
+                    CreateBookingDataAccess(csvPath).
+                    WriteBookings(bookings);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing Booking: {ex.Message}");
+                return false;
+            }
         }
         public bool CancelBooking(BookingId bookingId)
         {
-            return false;
+            try
+            {
+                var bookings= GetBookings().
+                    Where(booking => booking.BookingId != bookingId).
+                    ToList();
+                var isFound=GetBookings().
+                    Any(booking => booking.BookingId == bookingId);
+
+                return SetBookings(bookings)&&isFound; 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with Cancel Booking: {ex.Message}");
+                return false;
+            }
         }
         public bool UserAuthentication(User user, UserRole userRole)
         {
