@@ -31,8 +31,8 @@
             proxy.SetCsvPath(csvPath);
 
             var Flights = proxy.GetFlights();
-
-            return proxy.setFlights(Flights);
+            
+            return proxy.SetFlights(Flights);
         }
     }
 }
