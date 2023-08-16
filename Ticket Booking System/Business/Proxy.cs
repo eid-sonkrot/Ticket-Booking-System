@@ -2,7 +2,16 @@
 {
     public class Proxy
     {
-       public List<Flight> GetFlights(User user, UserRole userRole)
+        private User user;
+        private UserRole userRole;
+
+        public Proxy(User user, UserRole userRole)
+        {
+            this.user = user;
+            this.userRole = userRole;
+        }
+
+        public List<Flight> GetFlights()
         {
             return new List<Flight>();
         }
@@ -10,7 +19,7 @@
         {
             return false;
         }
-        public List<Ticket> GetTickets(User user, UserRole userRole)
+        public List<Ticket> GetTickets()
         {
             return new List<Ticket>();
         }
@@ -18,7 +27,7 @@
         {
             return false;
         }
-        public List<Booking> GetBookings(User user, UserRole userRole)
+        public List<Booking> GetBookings()
         {
             return new List<Booking>();
         }
@@ -26,6 +35,9 @@
         {
             return false;
         }
-
+        public bool CancelBooking(BookingId bookingId)
+        {
+            return false;
+        }
     }
 }
