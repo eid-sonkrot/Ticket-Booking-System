@@ -8,19 +8,18 @@
         {
             this.csvFilePath = csvFilePath;
         }
-
         public List<string[]> ReadCsvData()
         {
-            List<string[]> csvData = new List<string[]>();
+            var csvData = new List<string[]>();
 
             try
             {
-                using (StreamReader reader = new StreamReader(csvFilePath))
+                using (var reader = new StreamReader(csvFilePath))
                 {
                     while (!reader.EndOfStream)
                     {
-                        string line = reader.ReadLine();
-                        string[] fields = line.Split(',');
+                        var line = reader.ReadLine();
+                        var fields = line.Split(',');
                         csvData.Add(fields);
                     }
                 }
@@ -38,24 +37,25 @@
 
             return csvData;
         }
-
-        public void WriteCsvData(List<string[]> csvData)
+        public bool WriteCsvData(List<string[]> csvData)
         {
             try
             {
-                using (StreamWriter writer = new StreamWriter(csvFilePath))
+                using (var writer = new StreamWriter(csvFilePath))
                 {
-                    foreach (string[] fields in csvData)
+                    foreach (var fields in csvData)
                     {
-                        string line = string.Join(",", fields);
+                        var line = string.Join(",", fields);
                         writer.WriteLine(line);
                     }
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 // Handle any exceptions that might occur during the file writing process.
                 Console.WriteLine($"Error: Failed to write data to CSV file. {ex.Message}");
+                return false;
             }
         }
     }

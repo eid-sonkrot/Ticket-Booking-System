@@ -12,8 +12,7 @@ namespace TicketBookingSystem.Data
         }
         public CsvFlightDataAccess()
         {
-
-        }
+        }  
         public List<Flight> ReadFlights()
         {
             try
@@ -50,21 +49,21 @@ namespace TicketBookingSystem.Data
                 var csvData = new List<string[]>();
                 csvData.AddRange(flights.Select(flight => new string[]
                 {
-                flight.flightId.Id,
-                flight.departureCountry.CountryCode,
-                flight.departureCountry.CountryName,
-                flight.destinationCountry.CountryCode,
-                flight.destinationCountry.CountryName,
-                flight.departureDate.Year.ToString(),
-                flight.departureDate.Month.ToString(),
-                flight.departureDate.Day.ToString(),
-                flight.arrivalDate.Year.ToString(),
-                flight.arrivalDate.Month.ToString(),
-                flight.arrivalDate.Day.ToString(),
-                flight.departureAirport.AirportCode,
-                flight.departureAirport.AirportName,
-                flight.arrivalAirport.AirportCode,
-                flight.arrivalAirport.AirportName
+                   flight.flightId.Id,
+                   flight.departureCountry.CountryCode,
+                   flight.departureCountry.CountryName,
+                   flight.destinationCountry.CountryCode,
+                   flight.destinationCountry.CountryName,
+                   flight.departureDate.Year.ToString(),
+                   flight.departureDate.Month.ToString(),
+                   flight.departureDate.Day.ToString(),
+                   flight.arrivalDate.Year.ToString(),
+                   flight.arrivalDate.Month.ToString(),
+                   flight.arrivalDate.Day.ToString(),
+                   flight.departureAirport.AirportCode,
+                   flight.departureAirport.AirportName,
+                   flight.arrivalAirport.AirportCode,
+                   flight.arrivalAirport.AirportName
                 }));
                 csvDataManager.WriteCsvData(csvData);
                 return true;
