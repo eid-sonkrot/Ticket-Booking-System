@@ -16,7 +16,6 @@ namespace TicketBookingSystem.Business
         }
         public Flight()
         {
-
         }
         [Required]
         public FlightId flightId { get; set; }
