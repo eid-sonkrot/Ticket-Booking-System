@@ -9,6 +9,7 @@ namespace TicketBookingSystem.Business
         private UserRole userRole;
         private string csvPath;
         private IDataAccessFactory accessFactory;
+
         public Proxy(User user, UserRole userRole)
         {
             this.user = user;
@@ -58,14 +59,6 @@ namespace TicketBookingSystem.Business
                 Console.WriteLine($"Error writing flights: {ex.Message}");
                 return false;
             }
-        }
-        public List<Ticket> GetTickets()
-        {
-           throw new NotImplementedException();
-        }
-        public bool SetTickets(List<Ticket> tickets)
-        {
-            throw new NotImplementedException();
         }
         public List<Booking> GetBookings()
         {
