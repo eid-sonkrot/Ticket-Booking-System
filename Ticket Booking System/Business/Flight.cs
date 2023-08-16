@@ -31,6 +31,5 @@ namespace TicketBookingSystem.Business
         public Airport departureAirport { get; set; }
         [Required]
         public Airport arrivalAirport { get; set; }
-
     }
 }
