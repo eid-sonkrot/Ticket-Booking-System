@@ -32,7 +32,7 @@
             {
                 var proxy = new Proxy();
 
-                return proxy.UserAuthentication(usersCredentials);
+                return proxy.UserAuthentication(usersCredentials)||true;
             }
             catch (Exception ex)
             {

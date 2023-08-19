@@ -48,7 +48,7 @@ namespace TicketBookingSystem.Business
                 var tickets = flights.Select(flight =>
                              new List<Ticket>{ new Ticket(User.Person, flight.departureFlight, seat),
                              new Ticket(User.Person, flight.destinationFlight, seat)}.Distinct().ToList());
-                var bookings = tickets.Select(ticket => new Booking(ticket,BookingStatus.OnHold)).ToList();
+                var bookings = tickets.Select(ticket => new Booking(ticket, BookingStatus.OnHold)).ToList();
 
                 return bookings;
             }
@@ -58,16 +58,16 @@ namespace TicketBookingSystem.Business
                 return new List<Booking>();
             }
         }
-        public bool BookAJourney(List<Ticket>tickets, BookingStatus bookingStatus)
+        public bool BookAJourney(List<Ticket> tickets, BookingStatus bookingStatus)
         {
             try
             {
-                var book = new Booking(tickets,bookingStatus);
-                var proxy = new Proxy(User,Role);
+                var book = new Booking(tickets, bookingStatus);
+                var proxy = new Proxy(User, Role);
 
-                return proxy.SetBookings(new List<Booking> {book});
+                return proxy.SetBookings(new List<Booking> { book });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error with Book a Journey : {ex.Message}");
                 return false;
@@ -79,9 +79,9 @@ namespace TicketBookingSystem.Business
             {
                 var proxy = new Proxy(User, Role);
 
-                if(!proxy.CancelBooking(booking.BookingId))
+                if (!proxy.CancelBooking(booking.BookingId))
                     return false;
-                return  proxy.SetBookings(new List<Booking> { booking });
+                return proxy.SetBookings(new List<Booking> { booking });
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace TicketBookingSystem.Business
             {
                 var proxy = new Proxy(User, Role);
 
-                return proxy.GetFlights().Where(f=>f.Compare(flight)).ToList();
+                return proxy.GetFlights().Where(f => f.Compare(flight)).ToList();
             }
             catch (Exception ex)
             {
@@ -131,9 +131,9 @@ namespace TicketBookingSystem.Business
                 return new List<Flight>();
             }
         }
-        public List<Flight>  GetAllFlights()
+        public List<Flight> GetAllFlights()
         {
-            var proxy = new Proxy(User,Role);
+            var proxy = new Proxy(User, Role);
 
             return proxy.GetFlights();
         }

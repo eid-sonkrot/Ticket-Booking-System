@@ -98,15 +98,16 @@ namespace TicketBookingSystem.Business
         public string[] ToArrayOfStrign()
         {
             return FlightId.ToArrayOfStrign().
-                Concat(DepartureCountry.ToArrayOfStrign().
-                Concat(DepartureCountry.ToArrayOfStrign().Concat(DepartureDate.ToArrayOfStrign().
-                Concat(ArrivalDate.ToArrayOfStrign().
-                Concat(DepartureAirport.ToArrayOfString().
-                Concat(ArrivalAirport.ToArrayOfString().
-                Concat(new string[] { Class.ToString() }).
-                Concat(Price.ToArrayOfStrign()
-                ))))))).
-                ToArray();
+                        Concat(DepartureCountry.ToArrayOfStrign().
+                        Concat(DepartureCountry.ToArrayOfStrign().
+                        Concat(DepartureDate.ToArrayOfStrign().
+                        Concat(ArrivalDate.ToArrayOfStrign().
+                        Concat(DepartureAirport.ToArrayOfString().
+                        Concat(ArrivalAirport.ToArrayOfString().
+                        Concat(new string[] { Class.ToString() }).
+                        Concat(Price.ToArrayOfStrign()
+                        ))))))).
+                        ToArray();
         }
     }
 }
