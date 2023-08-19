@@ -27,11 +27,7 @@ namespace TicketBookingSystem.View
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Enter booking details:");
-                        // Implement logic to gather booking details here
-                        // Replace with your booking creation logic
-                        
-                        // Display filteredBookings
+                       FilterBooking();
                         break;
 
                     case 2:
