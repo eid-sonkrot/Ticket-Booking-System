@@ -61,22 +61,22 @@ namespace TicketBookingSystem.Business
         }
         public bool Compare(Booking booking)
         {
-            var isValid = this.tickets.Where(ticket => 
-            booking.tickets.All(ticket2=>
-            ticket.Compare(ticket2))).Count().Equals(tickets.Count());
+            var isValid = tickets.Count(ticket => booking.tickets.All(ticket2=>
+                ticket.Compare(ticket2))).Equals(tickets.Count());
+                                            
             if (!isValid)
                 return false;
-            if (!booking.journeyStatus.Equals( this.journeyStatus )&& booking.journeyStatus != null)
+            if (booking.journeyStatus != null &&!booking.journeyStatus.Equals( this.journeyStatus ) )
                 return false;
-            if (!this.price.Equals(booking.price))
+            if (booking.price != null && !this.price.Equals(booking.price))
                 return false;
-            if (!this.bookingDate.Equals(booking.bookingDate) && booking.bookingDate != null)
+            if (booking.bookingDate!=null&&!this.bookingDate.Equals(booking.bookingDate)) 
                 return false;
-            if (!this.departureDate.Equals(booking.departureDate) && booking.departureDate != null)
+            if (booking.departureDate != null&&!this.departureDate.Equals(booking.departureDate))
                 return false;
-            if (!this.arrivalDate.Equals(booking.arrivalDate) && booking.arrivalDate != null)
+            if (booking.arrivalDate != null && !this.arrivalDate.Equals(booking.arrivalDate))
                 return false;
-            if (this.bookingId.Equals(booking.bookingId) && booking.bookingId != null)
+            if (booking.bookingId != null && this.bookingId.Equals(booking.bookingId) )
                 return false;
             return true;
         }
