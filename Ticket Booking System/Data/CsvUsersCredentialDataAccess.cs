@@ -7,7 +7,7 @@ using TicketBookingSystem.Business;
 
 namespace TicketBookingSystem.Data
 {
-    public class CsvUsersCredentialDataAccess:IUsersCredentialDataAccess
+    public class CsvUsersCredentialDataAccess: IUsersCredentialDataAccess
     {
         private CsvDataManager csvDataManager;
 
@@ -29,7 +29,7 @@ namespace TicketBookingSystem.Data
 
                 return usersCredentials;
             }
-            catch (Exception ex)
+            catch (FileNotFoundException ex)
             {
                 Console.WriteLine($"Error reading flights: {ex.Message}");
                 return new List<UsersCredentials>(); // Return an empty list in case of error
