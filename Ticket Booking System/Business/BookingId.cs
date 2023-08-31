@@ -18,7 +18,7 @@ public record BookingId
             Id = values[0]
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] { Id };
     }

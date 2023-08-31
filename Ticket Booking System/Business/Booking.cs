@@ -101,17 +101,17 @@ namespace TicketBookingSystem.Business
             }
             return new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1])); 
         }
-        public string[] ToArrayOfStrign()
+        public string[] ToArrayOfString()
         {
-            return Tickets.SelectMany(ticket => ticket.ToArrayOfStrign()).Concat(BookingId.ToArrayOfStrign())
-            .Concat(BookingDate.ToArrayOfStrign())
+            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).Concat(BookingId.ToArrayOfString())
+            .Concat(BookingDate.ToArrayOfString())
             .Concat(new string[] { BookingStatus.ToString() })
-            .Concat(DepartureCountry.ToArrayOfStrign())
-            .Concat(DestinationCountry.ToArrayOfStrign())
-            .Concat(DepartureDate.ToArrayOfStrign())
-            .Concat(ArrivalDate.ToArrayOfStrign())
+            .Concat(DepartureCountry.ToArrayOfString())
+            .Concat(DestinationCountry.ToArrayOfString())
+            .Concat(DepartureDate.ToArrayOfString())
+            .Concat(ArrivalDate.ToArrayOfString())
             .Concat(new string[] { JourneyStatus.ToString() })
-            .Concat(Price.ToArrayOfStrign()) 
+            .Concat(Price.ToArrayOfString()) 
             .ToArray();
         }
     }

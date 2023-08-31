@@ -18,6 +18,6 @@
     }
     public string[] ToArrayOfString()
     {
-        return User.ToArrayOfStrign().Append(Role.ToString()).ToArray();
+        return User.ToArrayOfString().Append(Role.ToString()).ToArray();
     }
 }

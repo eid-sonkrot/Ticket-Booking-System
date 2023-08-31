@@ -25,7 +25,7 @@ public record Date
             Day = Convert.ToInt32(values[2])
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] {Year.ToString(),Month.ToString(),Day.ToString()};
     }

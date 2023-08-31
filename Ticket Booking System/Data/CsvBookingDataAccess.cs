@@ -32,7 +32,7 @@ namespace TicketBookingSystem.Data
             {
                 var csvData = new List<string[]>();
 
-                csvData.AddRange(bookings.Select(booking => booking.ToArrayOfStrign()));
+                csvData.AddRange(bookings.Select(booking => booking.ToArrayOfString()));
                 csvDataManager.WriteCsvData(csvData);
                 return true;
             }

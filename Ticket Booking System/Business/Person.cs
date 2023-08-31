@@ -25,7 +25,7 @@ public record Person
             PassprotNumber = values[2]
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] {PersonName,PersonId,PassprotNumber};
     }

@@ -37,7 +37,7 @@ namespace TicketBookingSystem.Data
             {
                 var csvData = new List<string[]>();
 
-                csvData.AddRange(flights.Select(flight =>flight.ToArrayOfStrign()));
+                csvData.AddRange(flights.Select(flight =>flight.ToArrayOfString()));
                 csvDataManager.WriteCsvData(csvData);
                 return true;
             }

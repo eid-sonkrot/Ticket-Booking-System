@@ -24,7 +24,7 @@ public record Country
             throw new ArgumentException("Insufficient values provided to fill the Country record.");
         }
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] { CountryCode, CountryName };
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TicketBookingSystem.Business;
-//add all Id in one record 
+//TODO add all Id in one record 
 public record FlightId
 {
     [RegularExpression(@"^[0-9]*$", ErrorMessage = "FlightId should contain only numeric values.")]
@@ -19,7 +19,7 @@ public record FlightId
             Id = values[0]
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] { Id };
     }

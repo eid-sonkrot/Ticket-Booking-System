@@ -95,17 +95,17 @@ namespace TicketBookingSystem.Business
                 Enum.Parse<Class>(values[18])
             );
         }
-        public string[] ToArrayOfStrign()
+        public string[] ToArrayOfString()
         {
-            return FlightId.ToArrayOfStrign().
-                        Concat(DepartureCountry.ToArrayOfStrign().
-                        Concat(DepartureCountry.ToArrayOfStrign().
-                        Concat(DepartureDate.ToArrayOfStrign().
-                        Concat(ArrivalDate.ToArrayOfStrign().
+            return FlightId.ToArrayOfString().
+                        Concat(DepartureCountry.ToArrayOfString().
+                        Concat(DepartureCountry.ToArrayOfString().
+                        Concat(DepartureDate.ToArrayOfString().
+                        Concat(ArrivalDate.ToArrayOfString().
                         Concat(DepartureAirport.ToArrayOfString().
                         Concat(ArrivalAirport.ToArrayOfString().
                         Concat(new string[] { Class.ToString() }).
-                        Concat(Price.ToArrayOfStrign()
+                        Concat(Price.ToArrayOfString()
                         ))))))).
                         ToArray();
         }
