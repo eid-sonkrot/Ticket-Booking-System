@@ -4,17 +4,14 @@ namespace TicketBookingSystem.View
 {
     public class UserInterfaceFactory : IUserInterfaceFactory
     {
-        public IUserInterface CreateUserInterface(UserRole type,IUser user)
-        {
-            switch (type)
+        public IUserInterface CreateUserInterface(IUser user)
+        { 
+           return user switch
             {
-                case UserRole.Passnger:
-                    return new PassengerUI(user);
-                case UserRole.Manger:
-                    return new MangerUI(user);
-                default:
-                    return new LoginUI();
-            }
+                 Passenger=>PassengerUI.GetPassengerUI(user),
+                 Manager=>MangerUI.GetMangerUI(user),
+                 _=>throw new NotImplementedException(),
+            };
         }
     }
 }

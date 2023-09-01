@@ -65,7 +65,7 @@ namespace TicketBookingSystem.Business
                 var book = new Booking(tickets, bookingStatus);
                 var proxy = new Proxy(User, Role);
 
-                return proxy.SetBookings(new List<Booking> { book });
+                return proxy.SetBookings(new List<Booking> {book});
             }
             catch (Exception ex)
             {
@@ -79,9 +79,9 @@ namespace TicketBookingSystem.Business
             {
                 var proxy = new Proxy(User, Role);
 
-                if (!proxy.CancelBooking(booking.BookingId))
+                if(!proxy.CancelBooking(booking.BookingId))
                     return false;
-                return proxy.SetBookings(new List<Booking> { booking });
+                return proxy.SetBookings(new List<Booking> {booking});
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace TicketBookingSystem.Business
                 return false;
             }
         }
-        public bool CancelBooking(BookingId bookingId)
+        public bool CancelBooking(ID bookingId)
         {
             try
             {

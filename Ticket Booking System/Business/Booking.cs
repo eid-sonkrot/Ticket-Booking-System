@@ -10,7 +10,7 @@ namespace TicketBookingSystem.Business
     public class Booking
     {
         public List<Ticket> Tickets { get; set; }=new List<Ticket>(){ };
-        public BookingId BookingId { get; set; }
+        public ID BookingId { get; set; }
         public Date BookingDate { get; set; }
         public BookingStatus BookingStatus { get; set; }
         public Country DepartureCountry { get; set; }
@@ -47,9 +47,9 @@ namespace TicketBookingSystem.Business
                 Currency = prices.FirstOrDefault().Currency
             };
         }
-        private BookingId GenerateId()
+        private ID GenerateId()
         {
-            var bookingId = new BookingId();
+            var bookingId = new ID();
             var id = (string)null;
             var maxValue = int.MaxValue - 1;
             var random = new Random();

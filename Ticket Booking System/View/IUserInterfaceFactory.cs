@@ -4,6 +4,6 @@ namespace TicketBookingSystem.View
 {
     public interface IUserInterfaceFactory
     {
-        public IUserInterface CreateUserInterface(UserRole type,IUser user);
+        public IUserInterface CreateUserInterface(IUser user);
     }
 }
