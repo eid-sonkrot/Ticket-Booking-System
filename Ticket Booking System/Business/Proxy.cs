@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RestSharp;
+using System.Collections.Generic;
 using TicketBookingSystem.Data;
 
 namespace TicketBookingSystem.Business
@@ -117,21 +118,20 @@ namespace TicketBookingSystem.Business
         }
         public bool UserAuthentication(UsersCredentials usersCredentials)
         {
-            try
-            {
-                var usersCredential = GetUsersCredential();
+             var usersCredential = GetUsersCredential();
 
-                return usersCredential.Any(usersCredential=>usersCredential.Equals(usersCredentials))||true;
-            }
-            catch (Exception ex)
+            if (usersCredential is not null)
             {
-                Console.WriteLine($"Error: with Authenticat User. {ex.Message}");
-                return false;
+                return usersCredential.Any(usersCredential => usersCredential.Equals(usersCredentials));
+            }
+            else
+            {
+                throw new NotImplementedException();
             }
         }
         private List<UsersCredentials> GetUsersCredential()
         {
-            throw new NotImplementedException();
+            return accessFactory.CreateUsersCredentialDataAccess(csvPath).ReadUsersCredentials();
         }
     }
 }
