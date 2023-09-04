@@ -29,15 +29,15 @@ namespace TicketBookingSystem.Business
         }
         public Ticket FillFromStrings(string[] values)
         {
-            if (values.Length != 21)
+            if (values.Length != 22)
             {
-                throw new ArgumentException("Exactly 21 values are required to fill the Ticket record.");
+                throw new ArgumentException("Exactly 22 values are required to fill the Ticket record.");
             }
             return new Ticket
             {
                 Person = new Person().FillFromStrings(values.Take(3).ToArray()),
                 Flight = new Flight().FillFromStrings(values.Skip(3).Take(18).ToArray()),
-                Seat = new Seat().FillFromStrings(new string[] { values[20] })
+                Seat = new Seat().FillFromStrings(new string[] { values[21] })
             };
         }
         public string[] ToArrayOfString()

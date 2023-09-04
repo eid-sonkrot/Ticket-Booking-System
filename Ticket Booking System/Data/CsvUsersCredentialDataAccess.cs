@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketBookingSystem.Business;
-
-namespace TicketBookingSystem.Data
+﻿namespace TicketBookingSystem.Data
 {
     public class CsvUsersCredentialDataAccess:IUsersCredentialDataAccess
     {

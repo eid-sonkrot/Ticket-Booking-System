@@ -1,4 +1,6 @@
-﻿using TicketBookingSystem.Business;
+﻿
+using TicketBookingSystem.Business;
+using TicketBookingSystem.Data;
 using TicketBookingSystem.View;
 
 namespace TicketBookingSystem
@@ -9,9 +11,8 @@ namespace TicketBookingSystem
         private IUser user; 
 
         public static void Main()
-        {
-            var ticketBookingSystem=new TicketBookingSystem();
-            
+       {
+            var ticketBookingSystem=new TicketBookingSystem();  
             while (true)
             {
                 try

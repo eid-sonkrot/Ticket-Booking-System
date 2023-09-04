@@ -95,23 +95,18 @@ namespace TicketBookingSystem.Business
         {
             var tickets = new List<Ticket>();
 
-            for (var i = 0; i < values.Length - 1; i += 21)
+            for (var i = 0; i < values.Length-1 ; i += 22)
             {
-                tickets.Add(new Ticket().FillFromStrings(values.Skip(i).Take(21).ToArray()));
+                tickets.Add(new Ticket().FillFromStrings(values.Skip(i).Take(22).ToArray()));
             }
-            return new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1])); 
+            var book= new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1]));
+
+            return book;
         }
         public string[] ToArrayOfString()
         {
-            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).Concat(BookingId.ToArrayOfString())
-            .Concat(BookingDate.ToArrayOfString())
-            .Concat(new string[] { BookingStatus.ToString() })
-            .Concat(DepartureCountry.ToArrayOfString())
-            .Concat(DestinationCountry.ToArrayOfString())
-            .Concat(DepartureDate.ToArrayOfString())
-            .Concat(ArrivalDate.ToArrayOfString())
-            .Concat(new string[] { JourneyStatus.ToString() })
-            .Concat(Price.ToArrayOfString()) 
+            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).
+             Concat(new string[] { BookingStatus.ToString() })
             .ToArray();
         }
     }
