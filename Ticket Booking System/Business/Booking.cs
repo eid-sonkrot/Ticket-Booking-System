@@ -71,9 +71,7 @@ namespace TicketBookingSystem.Business
         }
         public bool Compare(Booking booking)
         {
-            var isValid = this.Tickets.Where(ticket =>
-            booking.Tickets.All(ticket2 =>
-            ticket.Compare(ticket2))).Count().Equals(Tickets.Count());
+            var isValid = this.Tickets.FirstOrDefault().Compare(this.Tickets.FirstOrDefault());
 
             if (!isValid)
                 return false;
@@ -87,7 +85,7 @@ namespace TicketBookingSystem.Business
                 return false;
             if (!this.ArrivalDate.Equals(booking.ArrivalDate) && booking.ArrivalDate != null)
                 return false;
-            if (this.BookingId.Equals(booking.BookingId) && booking.BookingId != null)
+            if (!this.BookingId.Id.Equals(booking.BookingId.Id) && booking.BookingId != null)
                 return false;
             return true;
         }

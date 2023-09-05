@@ -4,7 +4,7 @@ using TicketBookingSystem.Data;
 
 namespace TicketBookingSystem.Business
 {
-    public class Proxy
+    public class Proxy : IProxy 
     {
         private User user;
         private UserRole userRole;
@@ -22,6 +22,10 @@ namespace TicketBookingSystem.Business
         public void SetCsvPath(string csvPath)
         {
             this.csvPath = csvPath;
+        }
+        public void SetCsvPath()
+        {
+            this.csvPath = "test.csv";
         }
         public List<Flight> GetFlights()
         {
@@ -129,7 +133,7 @@ namespace TicketBookingSystem.Business
             }
             else
             {
-                throw new NotImplementedException();
+                return false;
             }
         }
         private List<UsersCredentials> GetUsersCredential()
