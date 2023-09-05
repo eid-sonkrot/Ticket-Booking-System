@@ -24,6 +24,7 @@ namespace TicketBookingSystemTest.DataLayerTest
                 // Act
                 dataAccess.WriteUsersCredentials(usersCredentialsData);
                 var usersCredentials = dataAccess.ReadUsersCredentials();
+
                 // Assert
                 Assert.IsNotNull(usersCredentials);
                 Assert.AreEqual(usersCredentialsData.Count, usersCredentials.Count);
