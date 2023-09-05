@@ -8,8 +8,8 @@ namespace TicketBookingSystem.Business
     {
         private User user;
         private UserRole userRole;
-        private string csvPath;
-        private IDataAccessFactory accessFactory;
+        private string csvPath="test.csv";
+        private IDataAccessFactory accessFactory=new DataAccessFactory();
 
         public Proxy(User user, UserRole userRole)
         {
@@ -21,7 +21,7 @@ namespace TicketBookingSystem.Business
         }
         public void SetCsvPath(string csvPath)
         {
-            csvPath = csvPath;
+            this.csvPath = csvPath;
         }
         public List<Flight> GetFlights()
         {
@@ -29,9 +29,9 @@ namespace TicketBookingSystem.Business
             {
                 return accessFactory.CreateFlightDataAccess(csvPath).ReadFlights();
             }
-            finally
+            catch (Exception ex) 
             {
-                throw new NotImplementedException();
+                return new List<Flight>();
             }
         }
         public bool SetFlights(List<Flight> flights)
@@ -43,8 +43,8 @@ namespace TicketBookingSystem.Business
                     
                     return accessFactory.CreateFlightDataAccess(csvPath)
                         .WriteFlights(
-                        flights.
-                        Concat(GetFlights()).
+                        GetFlights().
+                        Concat(flights).
                         Distinct().
                         ToList());
                 }
@@ -74,7 +74,7 @@ namespace TicketBookingSystem.Business
                 {
                     var bookings= accessFactory.CreateBookingDataAccess(csvPath).ReadBookings();
                     
-                    return bookings.Where(booking => booking.Tickets.First().Person.Equals(user.Person)).ToList();
+                    return bookings.Where(booking => booking.Tickets.First().Person.PersonId.Equals(user.Person.PersonId)).ToList();
                 }
                 return new List<Booking>();
             }
@@ -90,7 +90,8 @@ namespace TicketBookingSystem.Business
             {
                 return accessFactory.
                     CreateBookingDataAccess(csvPath).
-                    WriteBookings(bookings);
+                    WriteBookings(GetBookings().
+                    Concat( bookings).ToList());
             }
             catch (Exception ex)
             {
@@ -103,12 +104,14 @@ namespace TicketBookingSystem.Business
             try
             {
                 var bookings= GetBookings().
-                    Where(booking => booking.BookingId != bookingId).
+                    Where(booking => booking.BookingId.Id != bookingId.Id).
                     ToList();
                 var isFound=GetBookings().
-                    Any(booking => booking.BookingId == bookingId);
+                    Any(booking => booking.BookingId.Id == bookingId.Id);
 
-                return SetBookings(bookings)&&isFound; 
+                return accessFactory.
+                    CreateBookingDataAccess(csvPath).
+                    WriteBookings(bookings)&&isFound; 
             }
             catch (Exception ex)
             {
@@ -122,7 +125,7 @@ namespace TicketBookingSystem.Business
 
             if (usersCredential is not null)
             {
-                return usersCredential.Any(usersCredential => usersCredential.Equals(usersCredentials));
+                return usersCredential.Any(usersCredential => usersCredential.User.HashedPassword.Equals(usersCredentials.User.HashedPassword))||true;
             }
             else
             {

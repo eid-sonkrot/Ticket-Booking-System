@@ -24,7 +24,7 @@ namespace TicketBookingSystemTest.BusinessLayerTest
         {
             // Arrange
             fixture.RepeatCount = 18;
-            var values = fixture.Create<int[]>().Select(v=>v.ToString()).ToArray();
+            var values = fixture.Create<Flight>().ToArrayOfString();
             var flight = new Flight();
             // Act
             var result = flight.FillFromStrings(values);

@@ -10,7 +10,8 @@ namespace TicketBookingSystem.Business
     public class Booking
     {
         public List<Ticket> Tickets { get; set; }=new List<Ticket>(){ };
-        public ID BookingId { get; set; }
+        public ID BookingId { get{ return new ID() { Id = Tickets.First().Person.PersonId}; }
+            set { } }
         public Date BookingDate { get; set; }
         public BookingStatus BookingStatus { get; set; }
         public Country DepartureCountry { get; set; }
@@ -35,7 +36,6 @@ namespace TicketBookingSystem.Business
         }
         public Booking()
         {
-
         }
         private Price ClaculatePrice()
         {
@@ -56,7 +56,7 @@ namespace TicketBookingSystem.Business
 
             id = string.Concat(Enumerable.Range(0, 8).Select(_ =>
             (random.Next(1, maxValue) % random.Next(1, maxValue)).ToString().FirstOrDefault()));
-            bookingId.Id = id;
+            bookingId.Id = Tickets.First().Person.PersonId;
             return bookingId;
         }
         private JourneyStatus SetjourneyStatus()
