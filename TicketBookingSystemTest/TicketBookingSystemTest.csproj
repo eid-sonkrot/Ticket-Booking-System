@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Ticket Booking System\TicketBookingSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViweLayerTest\" />
+  </ItemGroup>
+
 </Project>
