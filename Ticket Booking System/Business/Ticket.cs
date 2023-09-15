@@ -8,21 +8,25 @@ namespace TicketBookingSystem.Business
         [Required]
         public Flight flight { get; set; }
         public Seat seat { get; set; }
-        [Required]
-        BookingId bookingId { get; set; }
-        [Required]
-        public Class Class { get; set; }
-        public Price price { get; set; }
-        public Ticket(Person person, Flight flight, Seat seat, BookingId bookingId, Class @class)
+     
+        
+        public Ticket(Person person, Flight flight, Seat seat)
         {
             this.person = person;
             this.flight = flight;
             this.seat = seat;
-            this.bookingId = bookingId;
-            Class = @class;
         }
         public Ticket()
+        {     
+        }
+        public bool Compare(Ticket ticket)
         {
+            if(!this.seat.Equals(ticket.seat) && ticket.seat!=null)
+                return false;
+            if (!this.person.Equals(ticket.person) && ticket.person != null)
+                return false;
+            
+            return this.flight.Compare(ticket.flight);
         }
     }
 }
