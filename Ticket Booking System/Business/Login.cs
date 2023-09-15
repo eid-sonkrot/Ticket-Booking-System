@@ -8,7 +8,7 @@
         {
             userFactory = new UserFactory();
         }
-        public IUser GetUserControall(User user,UserRole role)
+        public IUser GetUserControall(UsersCredentials usersCredentials)
         {
             if (UserAuthentication(user, role))
             {
@@ -19,13 +19,13 @@
                 throw new Exception("Authentication failed");
             }
         }
-        public bool UserAuthentication(User user,UserRole role)
+        public bool UserAuthentication(UsersCredentials usersCredentials)
         {
             try
             {
                 var proxy = new Proxy();
 
-                return proxy.UserAuthentication(user,role);
+                return proxy.UserAuthentication(usersCredentials);
             }
             catch (Exception ex)
             {
