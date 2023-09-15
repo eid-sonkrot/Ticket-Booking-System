@@ -1,11 +1,14 @@
-﻿namespace TicketBookingSystem.Business
+﻿using System.Collections.Generic;
+using TicketBookingSystem.Data;
+
+namespace TicketBookingSystem.Business
 {
     public class Proxy
     {
         private User user;
         private UserRole userRole;
-        private string CsvPath;
-
+        private string csvPath;
+        private IDataAccessFactory accessFactory;
         public Proxy(User user, UserRole userRole)
         {
             this.user = user;
@@ -16,21 +19,51 @@
         }
         public void SetCsvPath(string csvPath)
         {
-            CsvPath = csvPath;
+            csvPath = csvPath;
         }
         public List<Flight> GetFlights()
         {
-            return new List<Flight>();
+            try
+            {
+                return accessFactory.CreateFlightDataAccess(csvPath).ReadFlights();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading flights: {ex.Message}");
+                return new List<Flight>();
+            }
         }
-        public bool setFlights(List<Flight> flights)
+        public bool SetFlights(List<Flight> flights)
         {
-            return false;
+            try
+            {
+                if (userRole == UserRole.Manger)
+                {
+                    
+                    return accessFactory.CreateFlightDataAccess(csvPath)
+                        .WriteFlights(
+                        flights.
+                        Concat(GetFlights()).
+                        Distinct().
+                        ToList());
+                }
+                else
+                {
+                    Console.WriteLine("Unauthorized: Only managers can add flights.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing flights: {ex.Message}");
+                return false;
+            }
         }
         public List<Ticket> GetTickets()
         {
             return new List<Ticket>();
         }
-        public bool setTickets(List<Ticket> tickets)
+        public bool SetTickets(List<Ticket> tickets)
         {
             return false;
         }
@@ -38,7 +71,7 @@
         {
             return new List<Booking>();
         }
-        public bool setBookings(List<Booking> bookings)
+        public bool SetBookings(List<Booking> bookings)
         {
             return false;
         }

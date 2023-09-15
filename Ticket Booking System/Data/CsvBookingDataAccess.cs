@@ -4,6 +4,10 @@ namespace TicketBookingSystem.Data
 {
     public class CsvBookingDataAccess : IBookingDataAccess
     {
+        public CsvBookingDataAccess(string csvFilePath)
+        {
+
+        }
         public List<Booking> ReadBookings()
         {
             return new List<Booking>();

@@ -41,6 +41,8 @@
         {
             try
             {
+                // Clear the file by writing an empty string
+                File.WriteAllText(csvFilePath, string.Empty);
                 using (var writer = new StreamWriter(csvFilePath))
                 {
                     foreach (var fields in csvData)
