@@ -2,7 +2,7 @@
 {
     public interface IUser
     {
-         User user { get; set; }
-         UserRole role { get; set; }
+         User User { get; set; }
+         UserRole Role { get; set; }
     }
 }

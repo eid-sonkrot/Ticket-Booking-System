@@ -3,6 +3,9 @@ using Newtonsoft.Json.Linq;
 
 namespace TicketBookingSystem.Business
 {
+    //TODO It is better to define the vale -1 as a constant
+    //configuration file
+    //Suppose that your request was failed, the JSON file you are trying to parse does not exist. So check if the response was successful before parsing it
     public class CurrencyExchange
     {
         private RestRequest request = new RestRequest();
@@ -24,6 +27,7 @@ namespace TicketBookingSystem.Business
                 return jsonObject["result"].Value<double>();
             }catch(Exception ex)
             {
+                //exception or return an error message
                 return 0;
             }
         }

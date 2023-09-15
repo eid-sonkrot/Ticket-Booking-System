@@ -1,84 +1,111 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace TicketBookingSystem.Business
 {
     public class Booking
     {
-        public List<Ticket> tickets=new List<Ticket>();
-        public BookingId bookingId { get; set; }
-        public Date bookingDate { get; set; }
-        public BookingStatus bookingStatus { get; set; }
-        public Country departureCountry { get; set; }
-        public Country destinationCountry { get; set; }
-        public Date? departureDate { get; set; }
-        public Date? arrivalDate { get; set; }
-        public JourneyStatus journeyStatus { get; set; }
-        public Price price { get; set; }
+        public List<Ticket> Tickets { get; set; }=new List<Ticket>(){ };
+        public ID BookingId { get{ return new ID() { Id = Tickets.First().Person.PersonId}; }
+            set { } }
+        public Date BookingDate { get; set; }
+        public BookingStatus BookingStatus { get; set; }
+        public Country DepartureCountry { get; set; }
+        public Country DestinationCountry { get; set; }
+        public Date? DepartureDate { get; set; }
+        public Date? ArrivalDate { get; set; }
+        public JourneyStatus JourneyStatus { get; set; }
+        public Price Price { get; set; }
 
         public Booking(List<Ticket> tickets, BookingStatus bookingStatus)
         {
-            this.tickets = tickets;
-            this.bookingId = GenerateId();
-            this.bookingDate = new Date { Day=DateTime.Now.Day,Year=DateTime.Now.Year,Month=DateTime.Now.Month};
-            this.bookingStatus = bookingStatus;
-            this.departureCountry = tickets.First().flight.departureCountry;
-            this.destinationCountry = tickets.Last().flight.destinationCountry;
-            this.departureDate =tickets.First().flight.departureDate;
-            this.arrivalDate = tickets.Last().flight.arrivalDate;
-            this.journeyStatus= SetjourneyStatus();
-            this.price = ClaculatePrice();
+            this.Tickets = tickets;
+            this.BookingId = GenerateId();
+            this.BookingDate = new Date { Day = DateTime.Now.Day, Year = DateTime.Now.Year, Month = DateTime.Now.Month };
+            this.BookingStatus = bookingStatus;
+            this.DepartureCountry = tickets.First().Flight.DepartureCountry;
+            this.DestinationCountry = tickets.Last().Flight.DestinationCountry;
+            this.DepartureDate = tickets.First().Flight.DepartureDate;
+            this.ArrivalDate = tickets.Last().Flight.ArrivalDate;
+            this.JourneyStatus = SetjourneyStatus();
+            this.Price = ClaculatePrice();
+        }
+        public Booking()
+        {
         }
         private Price ClaculatePrice()
         {
-            var prices = this.tickets.Select(ticket => ticket.flight.price).ToList();
+            var prices = this.Tickets.Select(ticket => ticket.Flight.Price).ToList();
+
             return new Price
             {
                 price = prices.Sum(p => p.price),
-                currency = prices.FirstOrDefault().currency
+                Currency = prices.FirstOrDefault().Currency
             };
         }
-        private BookingId GenerateId()
+        private ID GenerateId()
         {
-            var bookingId = new BookingId();
+            var bookingId = new ID();
             var id = (string)null;
-            var maxValue=int.MaxValue-1;
-            var random=new Random();
+            var maxValue = int.MaxValue - 1;
+            var random = new Random();
 
-            id= string.Concat(Enumerable.Range(0, 8).Select(_ =>
+            id = string.Concat(Enumerable.Range(0, 8).Select(_ =>
             (random.Next(1, maxValue) % random.Next(1, maxValue)).ToString().FirstOrDefault()));
-            bookingId.Id = id;
+            bookingId.Id = Tickets.First().Person.PersonId;
             return bookingId;
         }
         private JourneyStatus SetjourneyStatus()
         {
-            var isMulticity = tickets.First().flight.departureCountry == tickets.Last().flight.destinationCountry;
+            var isMulticity = Tickets.First().Flight.DepartureCountry == Tickets.Last().Flight.DestinationCountry;
 
-            if (tickets.Count() == 1)
+            if (Tickets.Count() == 1)
                 return JourneyStatus.OneWay;
-            if(tickets.Count() == 2 & isMulticity )
+            if (Tickets.Count() == 2 & isMulticity)
                 return JourneyStatus.MultiCity;
             return JourneyStatus.RoundTrip;
         }
         public bool Compare(Booking booking)
         {
-            var isValid = tickets.Count(ticket => booking.tickets.All(ticket2=>
-                ticket.Compare(ticket2))).Equals(tickets.Count());
-                                            
+            var isValid = this.Tickets.FirstOrDefault().Compare(this.Tickets.FirstOrDefault());
+
             if (!isValid)
                 return false;
-            if (booking.journeyStatus != null &&!booking.journeyStatus.Equals( this.journeyStatus ) )
+            if (!booking.JourneyStatus.Equals(this.JourneyStatus) && booking.JourneyStatus != null)
                 return false;
-            if (booking.price != null && !this.price.Equals(booking.price))
+            if (!this.Price.Equals(booking.Price))
                 return false;
-            if (booking.bookingDate!=null&&!this.bookingDate.Equals(booking.bookingDate)) 
+            if (!this.BookingDate.Equals(booking.BookingDate) && booking.BookingDate != null)
                 return false;
-            if (booking.departureDate != null&&!this.departureDate.Equals(booking.departureDate))
+            if (!this.DepartureDate.Equals(booking.DepartureDate) && booking.DepartureDate != null)
                 return false;
-            if (booking.arrivalDate != null && !this.arrivalDate.Equals(booking.arrivalDate))
+            if (!this.ArrivalDate.Equals(booking.ArrivalDate) && booking.ArrivalDate != null)
                 return false;
-            if (booking.bookingId != null && this.bookingId.Equals(booking.bookingId) )
+            if (!this.BookingId.Id.Equals(booking.BookingId.Id) && booking.BookingId != null)
                 return false;
             return true;
+        }
+        public Booking FillFromStrings(string[] values)
+        {
+            var tickets = new List<Ticket>();
+
+            for (var i = 0; i < values.Length-1 ; i += 22)
+            {
+                tickets.Add(new Ticket().FillFromStrings(values.Skip(i).Take(22).ToArray()));
+            }
+            var book= new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1]));
+
+            return book;
+        }
+        public string[] ToArrayOfString()
+        {
+            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).
+             Concat(new string[] { BookingStatus.ToString() })
+            .ToArray();
         }
     }
 }

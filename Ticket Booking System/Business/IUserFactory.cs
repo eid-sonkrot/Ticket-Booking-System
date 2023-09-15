@@ -2,6 +2,6 @@
 {
     public interface IUserFactory
     {
-        IUser CreateUser(User user, UserRole role);
+        IUser CreateUser(User user,UserRole role);
     }
 }

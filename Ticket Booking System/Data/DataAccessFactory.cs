@@ -2,17 +2,17 @@
 {
     public class DataAccessFactory:IDataAccessFactory
     {
-        public IFlightDataAccess CreateFlightDataAccess()
+        public IFlightDataAccess CreateFlightDataAccess(string csvFilePath)
         {
-            return new CsvFlightDataAccess();
+            return new CsvFlightDataAccess(csvFilePath);
         }
-        public ITicketDataAccess CreateTicketDataAccess()
+        public IBookingDataAccess CreateBookingDataAccess(string csvFilePath)
         {
-            return new CsvTicketDataAccess(); 
+            return new CsvBookingDataAccess(csvFilePath); 
         }
-        public IBookingDataAccess CreateBookingDataAccess()
+        public IUsersCredentialDataAccess CreateUsersCredentialDataAccess(string csvFilePath)
         {
-            return new CsvBookingDataAccess(); 
+            return new CsvUsersCredentialDataAccess(csvFilePath);
         }
     }
 }

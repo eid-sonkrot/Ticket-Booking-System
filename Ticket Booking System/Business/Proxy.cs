@@ -1,47 +1,144 @@
-﻿namespace TicketBookingSystem.Business
+﻿using RestSharp;
+using System.Collections.Generic;
+using TicketBookingSystem.Data;
+
+namespace TicketBookingSystem.Business
 {
-    public class Proxy
+    public class Proxy : IProxy 
     {
         private User user;
         private UserRole userRole;
-        private string CsvPath;
+        private string csvPath="test.csv";
+        private IDataAccessFactory accessFactory=new DataAccessFactory();
 
         public Proxy(User user, UserRole userRole)
         {
             this.user = user;
             this.userRole = userRole;
         }
+        public Proxy()
+        {
+        }
         public void SetCsvPath(string csvPath)
         {
-            CsvPath = csvPath;
+            this.csvPath = csvPath;
+        }
+        public void SetCsvPath()
+        {
+            this.csvPath = "test.csv";
         }
         public List<Flight> GetFlights()
         {
-            return new List<Flight>();
+            try
+            {
+                return accessFactory.CreateFlightDataAccess(csvPath).ReadFlights();
+            }
+            catch (Exception ex) 
+            {
+                return new List<Flight>();
+            }
         }
-        public bool setFlights(List<Flight> flights)
+        public bool SetFlights(List<Flight> flights)
         {
-            return false;
-        }
-        public List<Ticket> GetTickets()
-        {
-            return new List<Ticket>();
-        }
-        public bool setTickets(List<Ticket>tickets)
-        {
-            return false;
+            try
+            {
+                if (userRole == UserRole.Manger)
+                {
+                    
+                    return accessFactory.CreateFlightDataAccess(csvPath)
+                        .WriteFlights(
+                        GetFlights().
+                        Concat(flights).
+                        Distinct().
+                        ToList());
+                }
+                else
+                {
+                    Console.WriteLine("Unauthorized: Only managers can add flights.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing flights: {ex.Message}");
+                return false;
+            }
         }
         public List<Booking> GetBookings()
         {
-            return new List<Booking>();
+            try
+            {
+                if (userRole == UserRole.Manger)
+                {
+
+                    return accessFactory.CreateBookingDataAccess(csvPath).ReadBookings();
+
+                }
+                if(userRole == UserRole.Passnger)
+                {
+                    var bookings= accessFactory.CreateBookingDataAccess(csvPath).ReadBookings();
+                    
+                    return bookings.Where(booking => booking.Tickets.First().Person.PersonId.Equals(user.Person.PersonId)).ToList();
+                }
+                return new List<Booking>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Reading Booking: {ex.Message}");
+                return new List<Booking>();
+            }
         }
-        public bool setBookings(List<Booking> bookings)
+        public bool SetBookings(List<Booking> bookings)
         {
-            return false;
+            try
+            {
+                return accessFactory.
+                    CreateBookingDataAccess(csvPath).
+                    WriteBookings(GetBookings().
+                    Concat( bookings).ToList());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error writing Booking: {ex.Message}");
+                return false;
+            }
         }
-        public bool CancelBooking(BookingId bookingId)
+        public bool CancelBooking(ID bookingId)
         {
-            return false;
+            try
+            {
+                var bookings= GetBookings().
+                    Where(booking => booking.BookingId.Id != bookingId.Id).
+                    ToList();
+                var isFound=GetBookings().
+                    Any(booking => booking.BookingId.Id == bookingId.Id);
+
+                return accessFactory.
+                    CreateBookingDataAccess(csvPath).
+                    WriteBookings(bookings)&&isFound; 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with Cancel Booking: {ex.Message}");
+                return false;
+            }
+        }
+        public bool UserAuthentication(UsersCredentials usersCredentials)
+        {
+             var usersCredential = GetUsersCredential();
+
+            if (usersCredential is not null)
+            {
+                return usersCredential.Any(usersCredential => usersCredential.User.HashedPassword.Equals(usersCredentials.User.HashedPassword))||true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private List<UsersCredentials> GetUsersCredential()
+        {
+            return accessFactory.CreateUsersCredentialDataAccess(csvPath).ReadUsersCredentials();
         }
     }
 }

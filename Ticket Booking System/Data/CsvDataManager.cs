@@ -6,7 +6,11 @@
 
         public CsvDataManager(string csvFilePath)
         {
-            this.csvFilePath = csvFilePath;
+            this.csvFilePath = Path.Combine(Directory.GetCurrentDirectory(), csvFilePath);
+        }
+        public string GetCsvFilePath() 
+        {
+            return this.csvFilePath;
         }
         public List<string[]> ReadCsvData()
         {
@@ -41,6 +45,8 @@
         {
             try
             {
+                // Clear the file by writing an empty string
+                File.WriteAllText(csvFilePath, string.Empty);
                 using (var writer = new StreamWriter(csvFilePath))
                 {
                     foreach (var fields in csvData)
