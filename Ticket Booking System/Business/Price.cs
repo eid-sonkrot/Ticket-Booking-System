@@ -21,7 +21,7 @@ public record Price
             Currency = Enum.Parse<CurrencyType>(values[1])
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] { price.ToString(), Currency.ToString()};
     }

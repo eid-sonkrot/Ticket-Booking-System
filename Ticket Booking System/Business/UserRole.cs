@@ -1,5 +1,5 @@
 ﻿public enum UserRole
 {
-    Manger,
-    Passnger
+    Manger=2,
+    Passnger=1,
 }

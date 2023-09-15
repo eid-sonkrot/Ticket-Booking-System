@@ -28,10 +28,9 @@ namespace TicketBookingSystem.Business
             {
                 return accessFactory.CreateFlightDataAccess(csvPath).ReadFlights();
             }
-            catch (Exception ex)
+            finally
             {
-                Console.WriteLine($"Error reading flights: {ex.Message}");
-                return new List<Flight>();
+                throw new NotImplementedException();
             }
         }
         public bool SetFlights(List<Flight> flights)
@@ -98,7 +97,7 @@ namespace TicketBookingSystem.Business
                 return false;
             }
         }
-        public bool CancelBooking(BookingId bookingId)
+        public bool CancelBooking(ID bookingId)
         {
             try
             {

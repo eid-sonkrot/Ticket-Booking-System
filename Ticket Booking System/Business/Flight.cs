@@ -6,7 +6,7 @@ namespace TicketBookingSystem.Business
     public class Flight
     {   
         [Required]
-        public FlightId FlightId { get; set; }
+        public ID FlightId { get; set; }
         [Required]
         public Country DepartureCountry { get; set; }
         [Required]
@@ -21,7 +21,7 @@ namespace TicketBookingSystem.Business
         public Airport ArrivalAirport { get; set; }
         public Class Class { get; set; }
         public Price Price { get; set; }
-        public Flight(FlightId flightId, Country departureCountry, Country destinationCountry, Date departureDate, Date arrivalDate, Airport departureAirport, Airport arrivalAirport,Price price,Class @class)
+        public Flight(ID flightId, Country departureCountry, Country destinationCountry, Date departureDate, Date arrivalDate, Airport departureAirport, Airport arrivalAirport,Price price,Class @class)
         {
             this.FlightId = flightId;
             this.DepartureCountry = departureCountry;
@@ -84,7 +84,7 @@ namespace TicketBookingSystem.Business
             }
 
             return new Flight(
-                new FlightId().FillFromStrings(new string[] { values[0] }),
+                new ID().FillFromStrings(new string[] { values[0] }),
                 new Country().FillFromStrings(new string[] { values[1], values[2] }),
                 new Country().FillFromStrings(new string[] { values[3], values[4] }),
                 new Date().FillFromStrings(new string[] { values[5], values[6], values[7] }),
@@ -95,18 +95,19 @@ namespace TicketBookingSystem.Business
                 Enum.Parse<Class>(values[18])
             );
         }
-        public string[] ToArrayOfStrign()
+        public string[] ToArrayOfString()
         {
-            return FlightId.ToArrayOfStrign().
-                Concat(DepartureCountry.ToArrayOfStrign().
-                Concat(DepartureCountry.ToArrayOfStrign().Concat(DepartureDate.ToArrayOfStrign().
-                Concat(ArrivalDate.ToArrayOfStrign().
-                Concat(DepartureAirport.ToArrayOfString().
-                Concat(ArrivalAirport.ToArrayOfString().
-                Concat(new string[] { Class.ToString() }).
-                Concat(Price.ToArrayOfStrign()
-                ))))))).
-                ToArray();
+            return FlightId.ToArrayOfString().
+                        Concat(DepartureCountry.ToArrayOfString().
+                        Concat(DepartureCountry.ToArrayOfString().
+                        Concat(DepartureDate.ToArrayOfString().
+                        Concat(ArrivalDate.ToArrayOfString().
+                        Concat(DepartureAirport.ToArrayOfString().
+                        Concat(ArrivalAirport.ToArrayOfString().
+                        Concat(new string[] { Class.ToString() }).
+                        Concat(Price.ToArrayOfString()
+                        ))))))).
+                        ToArray();
         }
     }
 }

@@ -23,8 +23,8 @@ public record User
             HashedPassword = values[4]
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
-        return  Person.ToArrayOfStrign().Append(Email).Append(HashedPassword).ToArray();
+        return  Person.ToArrayOfString().Append(Email).Append(HashedPassword).ToArray();
     }
 }

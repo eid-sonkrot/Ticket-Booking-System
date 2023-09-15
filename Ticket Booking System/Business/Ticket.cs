@@ -40,11 +40,11 @@ namespace TicketBookingSystem.Business
                 Seat = new Seat().FillFromStrings(new string[] { values[20] })
             };
         }
-        public string[] ToArrayOfStrign()
+        public string[] ToArrayOfString()
         {
-            return Person.ToArrayOfStrign().
-                Concat(Flight.ToArrayOfStrign().
-                Concat(Seat.ToArrayOfStrign())).
+            return Person.ToArrayOfString().
+                Concat(Flight.ToArrayOfString().
+                Concat(Seat.ToArrayOfString())).
                 ToArray();
         }
     }

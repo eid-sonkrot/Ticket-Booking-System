@@ -10,7 +10,7 @@ namespace TicketBookingSystem.Business
     public class Booking
     {
         public List<Ticket> Tickets { get; set; }=new List<Ticket>(){ };
-        public BookingId BookingId { get; set; }
+        public ID BookingId { get; set; }
         public Date BookingDate { get; set; }
         public BookingStatus BookingStatus { get; set; }
         public Country DepartureCountry { get; set; }
@@ -47,9 +47,9 @@ namespace TicketBookingSystem.Business
                 Currency = prices.FirstOrDefault().Currency
             };
         }
-        private BookingId GenerateId()
+        private ID GenerateId()
         {
-            var bookingId = new BookingId();
+            var bookingId = new ID();
             var id = (string)null;
             var maxValue = int.MaxValue - 1;
             var random = new Random();
@@ -101,17 +101,17 @@ namespace TicketBookingSystem.Business
             }
             return new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1])); 
         }
-        public string[] ToArrayOfStrign()
+        public string[] ToArrayOfString()
         {
-            return Tickets.SelectMany(ticket => ticket.ToArrayOfStrign()).Concat(BookingId.ToArrayOfStrign())
-            .Concat(BookingDate.ToArrayOfStrign())
+            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).Concat(BookingId.ToArrayOfString())
+            .Concat(BookingDate.ToArrayOfString())
             .Concat(new string[] { BookingStatus.ToString() })
-            .Concat(DepartureCountry.ToArrayOfStrign())
-            .Concat(DestinationCountry.ToArrayOfStrign())
-            .Concat(DepartureDate.ToArrayOfStrign())
-            .Concat(ArrivalDate.ToArrayOfStrign())
+            .Concat(DepartureCountry.ToArrayOfString())
+            .Concat(DestinationCountry.ToArrayOfString())
+            .Concat(DepartureDate.ToArrayOfString())
+            .Concat(ArrivalDate.ToArrayOfString())
             .Concat(new string[] { JourneyStatus.ToString() })
-            .Concat(Price.ToArrayOfStrign()) 
+            .Concat(Price.ToArrayOfString()) 
             .ToArray();
         }
     }

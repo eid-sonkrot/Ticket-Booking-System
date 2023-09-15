@@ -4,7 +4,6 @@
     {
         public User User { get; set; }
         public UserRole Role { get; set; }
-
         public Manager(User user, UserRole role)
         {
             this.User = user;

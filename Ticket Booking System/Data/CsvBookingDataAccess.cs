@@ -17,8 +17,7 @@ namespace TicketBookingSystem.Data
                 var csvData = csvDataManager.ReadCsvData();
                 var bookings = csvData
                     .Select(fields => new Booking().FillFromStrings(fields))
-                    .ToList();
-
+                    .ToList();//TODO Ask Abd
                 return bookings;
             }
             catch (Exception ex)
@@ -33,7 +32,7 @@ namespace TicketBookingSystem.Data
             {
                 var csvData = new List<string[]>();
 
-                csvData.AddRange(bookings.Select(booking => booking.ToArrayOfStrign()));
+                csvData.AddRange(bookings.Select(booking => booking.ToArrayOfString()));
                 csvDataManager.WriteCsvData(csvData);
                 return true;
             }

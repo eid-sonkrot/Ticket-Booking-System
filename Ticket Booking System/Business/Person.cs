@@ -13,7 +13,7 @@ public record Person
     public string PassprotNumber { get; set; }
     public Person FillFromStrings(string[] values)
     {
-        if (values.Length != 3)
+        if (values.Length is not 3)
         {
             throw new ArgumentException("Exactly 3 values are required to fill the Person record.");
         }
@@ -25,7 +25,7 @@ public record Person
             PassprotNumber = values[2]
         };
     }
-    public string[] ToArrayOfStrign()
+    public string[] ToArrayOfString()
     {
         return new string[] {PersonName,PersonId,PassprotNumber};
     }
