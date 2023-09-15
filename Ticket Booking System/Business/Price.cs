@@ -3,7 +3,7 @@ using TicketBookingSystem.Business;
 
 public record Price
 {
-    [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
+    [Range(0.01, 10000000, ErrorMessage = "Price must be greater than zero.")]
     public double price { get; set; }
 
     [EnumDataType(typeof(CurrencyType), ErrorMessage = "Invalid currency type.")]

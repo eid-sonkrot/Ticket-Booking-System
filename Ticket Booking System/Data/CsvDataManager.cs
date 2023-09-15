@@ -6,7 +6,11 @@
 
         public CsvDataManager(string csvFilePath)
         {
-            this.csvFilePath = csvFilePath;
+            this.csvFilePath = Path.Combine(Directory.GetCurrentDirectory(), csvFilePath);
+        }
+        public string GetCsvFilePath() 
+        {
+            return this.csvFilePath;
         }
         public List<string[]> ReadCsvData()
         {

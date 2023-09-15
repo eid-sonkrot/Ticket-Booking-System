@@ -10,7 +10,8 @@ namespace TicketBookingSystem.Business
     public class Booking
     {
         public List<Ticket> Tickets { get; set; }=new List<Ticket>(){ };
-        public ID BookingId { get; set; }
+        public ID BookingId { get{ return new ID() { Id = Tickets.First().Person.PersonId}; }
+            set { } }
         public Date BookingDate { get; set; }
         public BookingStatus BookingStatus { get; set; }
         public Country DepartureCountry { get; set; }
@@ -35,7 +36,6 @@ namespace TicketBookingSystem.Business
         }
         public Booking()
         {
-
         }
         private Price ClaculatePrice()
         {
@@ -56,7 +56,7 @@ namespace TicketBookingSystem.Business
 
             id = string.Concat(Enumerable.Range(0, 8).Select(_ =>
             (random.Next(1, maxValue) % random.Next(1, maxValue)).ToString().FirstOrDefault()));
-            bookingId.Id = id;
+            bookingId.Id = Tickets.First().Person.PersonId;
             return bookingId;
         }
         private JourneyStatus SetjourneyStatus()
@@ -71,9 +71,7 @@ namespace TicketBookingSystem.Business
         }
         public bool Compare(Booking booking)
         {
-            var isValid = this.Tickets.Where(ticket =>
-            booking.Tickets.All(ticket2 =>
-            ticket.Compare(ticket2))).Count().Equals(Tickets.Count());
+            var isValid = this.Tickets.FirstOrDefault().Compare(this.Tickets.FirstOrDefault());
 
             if (!isValid)
                 return false;
@@ -87,7 +85,7 @@ namespace TicketBookingSystem.Business
                 return false;
             if (!this.ArrivalDate.Equals(booking.ArrivalDate) && booking.ArrivalDate != null)
                 return false;
-            if (this.BookingId.Equals(booking.BookingId) && booking.BookingId != null)
+            if (!this.BookingId.Id.Equals(booking.BookingId.Id) && booking.BookingId != null)
                 return false;
             return true;
         }
@@ -95,23 +93,18 @@ namespace TicketBookingSystem.Business
         {
             var tickets = new List<Ticket>();
 
-            for (var i = 0; i < values.Length - 1; i += 21)
+            for (var i = 0; i < values.Length-1 ; i += 22)
             {
-                tickets.Add(new Ticket().FillFromStrings(values.Skip(i).Take(21).ToArray()));
+                tickets.Add(new Ticket().FillFromStrings(values.Skip(i).Take(22).ToArray()));
             }
-            return new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1])); 
+            var book= new Booking(tickets, Enum.Parse<BookingStatus>(values[values.Length - 1]));
+
+            return book;
         }
         public string[] ToArrayOfString()
         {
-            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).Concat(BookingId.ToArrayOfString())
-            .Concat(BookingDate.ToArrayOfString())
-            .Concat(new string[] { BookingStatus.ToString() })
-            .Concat(DepartureCountry.ToArrayOfString())
-            .Concat(DestinationCountry.ToArrayOfString())
-            .Concat(DepartureDate.ToArrayOfString())
-            .Concat(ArrivalDate.ToArrayOfString())
-            .Concat(new string[] { JourneyStatus.ToString() })
-            .Concat(Price.ToArrayOfString()) 
+            return Tickets.SelectMany(ticket => ticket.ToArrayOfString()).
+             Concat(new string[] { BookingStatus.ToString() })
             .ToArray();
         }
     }

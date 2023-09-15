@@ -5,9 +5,9 @@
 
     public UsersCredentials FillFromStrings(string[] values)
     {
-        if (values.Length != 2)
+        if (values.Length != 6)
         {
-            throw new ArgumentException("Exactly 2 values are required to fill the Airport record.");
+            throw new ArgumentException("Exactly 6 values are required to fill the Airport record.");
         }
 
         return new UsersCredentials

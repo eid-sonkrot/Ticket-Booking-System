@@ -3,10 +3,15 @@
     public class Login
     {   
         private UserFactory userFactory;
+        private IProxy proxy=new Proxy(); 
 
         public Login()
         {
             userFactory = new UserFactory();
+        }
+        public void SetProxy(IProxy proxy)
+        {
+            this.proxy=proxy;
         }
         public IUser GetUserControall(UsersCredentials usersCredentials)
         {
@@ -30,8 +35,6 @@
         {
             try
             {
-                var proxy = new Proxy();
-
                 return proxy.UserAuthentication(usersCredentials);
             }
             catch (Exception ex)

@@ -91,21 +91,21 @@ namespace TicketBookingSystem.Business
                 new Date().FillFromStrings(new string[] { values[8], values[9], values[10] }),
                 new Airport().FillFromStrings(new string[] { values[11], values[12] }),
                 new Airport().FillFromStrings(new string[] { values[13], values[14] }),
-                new Price().FillFromStrings(new string[] { values[15], values[16], values[17] }),
-                Enum.Parse<Class>(values[18])
+                new Price().FillFromStrings(new string[] { values[15], values[16] }),
+                Enum.Parse<Class>(values[17])
             );
         }
         public string[] ToArrayOfString()
         {
             return FlightId.ToArrayOfString().
                         Concat(DepartureCountry.ToArrayOfString().
-                        Concat(DepartureCountry.ToArrayOfString().
+                        Concat(DestinationCountry.ToArrayOfString().
                         Concat(DepartureDate.ToArrayOfString().
                         Concat(ArrivalDate.ToArrayOfString().
                         Concat(DepartureAirport.ToArrayOfString().
                         Concat(ArrivalAirport.ToArrayOfString().
-                        Concat(new string[] { Class.ToString() }).
-                        Concat(Price.ToArrayOfString()
+                        Concat(Price.ToArrayOfString()).
+                        Concat(new string[] { Class.ToString() }
                         ))))))).
                         ToArray();
         }
