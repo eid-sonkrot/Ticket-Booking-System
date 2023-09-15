@@ -11,6 +11,9 @@
             this.user = user;
             this.userRole = userRole;
         }
+        public Proxy()
+        {
+        }
         public void SetCsvPath(string csvPath)
         {
             CsvPath = csvPath;
@@ -27,7 +30,7 @@
         {
             return new List<Ticket>();
         }
-        public bool setTickets(List<Ticket>tickets)
+        public bool setTickets(List<Ticket> tickets)
         {
             return false;
         }
@@ -42,6 +45,24 @@
         public bool CancelBooking(BookingId bookingId)
         {
             return false;
+        }
+        public bool UserAuthentication(User user, UserRole userRole)
+        {
+            try
+            {
+                var usersCredential = GetUsersCredential();
+
+                return usersCredential.Any(usersCredential=>usersCredential.Equals((user,userRole)));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: with Authenticat User. {ex.Message}");
+                return false;
+            }
+        }
+        private List<(User,UserRole)> GetUsersCredential()
+        {
+            throw new NotImplementedException();
         }
     }
 }
