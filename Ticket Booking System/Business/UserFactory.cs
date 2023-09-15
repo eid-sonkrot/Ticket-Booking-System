@@ -4,15 +4,12 @@
     {
         public IUser CreateUser(User user, UserRole role)
         {
-            switch (role)
+            return role switch
             {
-                case UserRole.Manger:
-                    return new Manager(user, role);
-                case UserRole.Passnger:
-                    return new Passenger(user, role);
-                default:
-                    throw new ArgumentException("Invalid role");
-            }
+                UserRole.Manger => new Manager(user, role),
+                UserRole.Passnger => new Passenger(user, role),
+                _ => throw new ArgumentException("Invalid role")
+            };
         }
     }
 

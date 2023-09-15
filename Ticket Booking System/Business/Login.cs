@@ -10,20 +10,13 @@
         }
         public IUser GetUserControall(UsersCredentials usersCredentials)
         {
-            try
+            if (UserAuthentication(user, role))
             {
-                if (UserAuthentication(usersCredentials))
-                {
-                    return userFactory.CreateUser(usersCredentials.User,usersCredentials.Role);
-                }else
-                {
-                    Console.WriteLine("Authentication failed.");
-                    return null;
-                }
-            }catch(Exception ex)
+                return userFactory.CreateUser(user, role);
+            }
+            else
             {
-                Console.WriteLine($"Error: with Creat User. {ex.Message}");
-                return null;
+                throw new Exception("Authentication failed");
             }
         }
         public bool UserAuthentication(UsersCredentials usersCredentials)
