@@ -59,5 +59,26 @@ namespace TicketBookingSystem.Business
                 return JourneyStatus.MultiCity;
             return JourneyStatus.RoundTrip;
         }
+        public bool Compare(Booking booking)
+        {
+            var isValid = tickets.Count(ticket => booking.tickets.All(ticket2=>
+                ticket.Compare(ticket2))).Equals(tickets.Count());
+                                            
+            if (!isValid)
+                return false;
+            if (booking.journeyStatus != null &&!booking.journeyStatus.Equals( this.journeyStatus ) )
+                return false;
+            if (booking.price != null && !this.price.Equals(booking.price))
+                return false;
+            if (booking.bookingDate!=null&&!this.bookingDate.Equals(booking.bookingDate)) 
+                return false;
+            if (booking.departureDate != null&&!this.departureDate.Equals(booking.departureDate))
+                return false;
+            if (booking.arrivalDate != null && !this.arrivalDate.Equals(booking.arrivalDate))
+                return false;
+            if (booking.bookingId != null && this.bookingId.Equals(booking.bookingId) )
+                return false;
+            return true;
+        }
     }
 }

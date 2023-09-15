@@ -4,13 +4,17 @@
     {
         private User user;
         private UserRole userRole;
+        private string CsvPath;
 
         public Proxy(User user, UserRole userRole)
         {
             this.user = user;
             this.userRole = userRole;
         }
-
+        public void SetCsvPath(string csvPath)
+        {
+            CsvPath = csvPath;
+        }
         public List<Flight> GetFlights()
         {
             return new List<Flight>();
